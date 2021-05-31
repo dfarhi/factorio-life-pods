@@ -1,0 +1,8 @@
+require("prototypes.entities")
+require("prototypes.categories.recipe-categories")
+require("prototypes.fluids")
+require("prototypes.recipes")
+require("prototypes.modules")
+require("prototypes.technologies")
+require("prototypes.keyboard")
+require("prototypes.virtual_signals")
