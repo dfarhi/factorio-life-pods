@@ -200,4 +200,5 @@ if (settings and settings.startup["life-pods-debug"].value) then
         purpleyellow = 10 * TICKS_PER_SECOND,
         final = 15 * TICKS_PER_SECOND,
     }
+    CONFIG.RESCUE_MAX_DEATHS_PER_HOUR = 100
 end
