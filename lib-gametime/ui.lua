@@ -170,11 +170,15 @@ local function updateUI(pod, gui)
     else
         gui.stabilization.value = pod.percent_stabilized
     end
+    local pod_stabilization_time = (1-pod.percent_stabilized) * CONFIG.POD_TICKS_TO_FULL_REPAIR / pod.endgame_speedup
+    local module_inventory = pod.repair.get_module_inventory()
+    -- Compare it to 1+epsilon because of how we give moduels one extra push in order to avoid off-by-one errors in control.lua
+    local sufficient_module = pod.stabilized or (module_inventory.get_item_count() > 0 and pod.percent_stabilized + module_inventory[1].health > 1.0 - (10 * TICKS_PER_SECOND / CONFIG.POD_TICKS_TO_FULL_REPAIR * pod.endgame_speedup))
     local time = podSecsTillDeath(pod) * TICKS_PER_SECOND
-    local safe = (time > (1-pod.percent_stabilized) * CONFIG.POD_TICKS_TO_FULL_REPAIR / pod.endgame_speedup)
-            and pod.repair.get_module_inventory().get_item_count() > 0
-            -- and pod.repair.get_module_inventory()[1].health >= (1-pod.percent_stabilized)
-    if pod.stabilized or safe then
+    local safe = (time > pod_stabilization_time)
+    if not sufficient_module then
+        gui.stabilization.style.color={r = 1, g = 0, b = 0, a = 1 }
+    elseif pod.stabilized or safe then
         gui.stabilization.style.color={r = 0, g = 1, b = 0, a = 1 }
     else
         gui.stabilization.style.color={r = 1, g = 0, b = 1, a = 1 }

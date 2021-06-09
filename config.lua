@@ -187,7 +187,7 @@ if (settings and settings.startup["life-pods-debug"].value) then
     CONFIG.dead_pop_feedback.next_pod_time = 1 * TICKS_PER_SECOND
     CONFIG.TECH_CHANCE_PER_SECOND = 0.2
 
-    CONFIG.POD_TICKS_TO_FULL_REPAIR = 30 * TICKS_PER_SECOND
+    CONFIG.POD_TICKS_TO_FULL_REPAIR = 50 * TICKS_PER_SECOND
     CONFIG.RESCUE_SPEEDUP_WARNING_TIME = 59.7 * TICKS_PER_MINUTE
     CONFIG.tech_times = {
         red = 2.001 * TICKS_PER_SECOND, -- Should be more than the first maximum period so the first thing is in start era.
